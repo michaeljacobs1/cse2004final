@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced Weather Tracker - Get detailed weather information with interactive maps, forecasts, and save your favorite locations">
+    <title>Weather Tracker v2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span>Weather Tracker</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active" data-page="home">
+                    Home
+                </a></li>
+                <li><a href="#favorites" class="nav-link" data-page="favorites">
+                    Favorites
+                </a></li>
+            </ul>
+            <button type="button" class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="home-page" class="page active">
+        <div class="container">
+            <div class="hero-section">
+                <h1 class="hero-title">
+                    Weather Tracker v2
+                </h1>
+                <p class="hero-subtitle">Get detailed weather information with interactive maps</p>
+            </div>
+
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <input
+                            type="text"
+                            id="cityInput"
+                            placeholder="Enter city name..."
+                            aria-label="City name input"
+                        >
+                    </div>
+                    <button type="button" id="searchBtn" class="search-btn" aria-label="Search weather">
+                        Search
+                    </button>
+                </div>
+
+                <div class="toggle-container">
+                    <button type="button" class="unit-toggle active" data-unit="fahrenheit" aria-label="Fahrenheit temperature unit">
+                        °F
+                    </button>
+                    <button type="button" class="unit-toggle" data-unit="celsius" aria-label="Celsius temperature unit">
+                        °C
+                    </button>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading weather data...</p>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <div class="weather-display" id="weatherDisplay">
+                <div class="weather-card">
+                    <div class="current-weather">
+                        <div class="weather-header">
+                            <h2 class="city-name" id="cityName">City Name</h2>
+                            <button type="button" class="favorite-btn" id="favoriteBtn" aria-label="Add to favorites">
+                                <span class="favorite-icon">+</span>
+                            </button>
+                        </div>
+
+                        <div class="temperature-container">
+                            <div class="temperature" id="temperature"></div>
+                            <div class="weather-icon-wrapper">
+                                <img id="weatherIcon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Weather icon" class="weather-icon">
+                            </div>
+                        </div>
+
+                        <div class="description" id="description"></div>
+
+                        <button type="button" class="view-details-btn" id="viewDetailsBtn">
+                            View Detailed Information
+                        </button>
+
+                        <div class="weather-details">
+                            <div class="detail-card expandable">
+                                <div class="detail-header">
+                                    <div class="detail-label">Feels Like</div>
+                                    <div class="detail-value" id="feelsLike"></div>
+                                </div>
+                            </div>
+                            <div class="detail-card expandable">
+                                <div class="detail-header">
+                                    <div class="detail-label">Humidity</div>
+                                    <div class="detail-value" id="humidity"></div>
+                                </div>
+                            </div>
+                            <div class="detail-card expandable">
+                                <div class="detail-header">
+                                    <div class="detail-label">Wind Speed</div>
+                                    <div class="detail-value" id="windSpeed"></div>
+                                </div>
+                            </div>
+                            <div class="detail-card expandable">
+                                <div class="detail-header">
+                                    <div class="detail-label">Pressure</div>
+                                    <div class="detail-value" id="pressure"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-section">
+                        <h3 class="section-title">
+                            Location Map
+                        </h3>
+                        <div id="map" class="map-container"></div>
+                    </div>
+
+                    <div class="forecast-section">
+                        <h3 class="section-title">
+                            5-Day Forecast
+                        </h3>
+                        <div class="forecast-list" id="forecastList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="favorites-page" class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">
+                    Favorite Locations
+                </h1>
+                <p class="page-subtitle">Your saved weather locations</p>
+            </div>
+
+            <div id="favoritesList" class="favorites-list">
+                <div class="empty-state" id="emptyFavorites">
+                    <h3>No favorites yet</h3>
+                    <p>Search for a city and add it to your favorites to see it here!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    Detailed Weather Information
+                </h2>
+                <button type="button" class="modal-close" aria-label="Close modal">
+                    <span>X</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
